@@ -44,7 +44,7 @@ void Game::displayAll( void ) {
 
 void Game::shoot( void ) {
 	for (int i = 0; i < 42; i++) {
-		if (this->bullets[i].alive() == false) {
+		if (!this->bullets[i].alive()) {
 			this->bullets[i].setLiveStatus(true);
 			this->bullets[i].setAbsCoordinates(Coordinates(this->player.getAbsCoordinates().getX()+1, this->player.getAbsCoordinates().getY()-1));
 			return ;
@@ -60,10 +60,11 @@ void	Game::updateGameEntitiesB( void )
 		this->bSpeed = 0;
 		for (int i = 0; i < 42; i++)
 		{
-			if (this->bullets[i].alive())
-			{
+			if (this->bullets[i].alive()){
 				this->bullets[i].setAbsCoordinates(Coordinates(this->bullets[i].getAbsCoordinates().getX(),
 															   this->bullets[i].getAbsCoordinates().getY() - 1));
+				if (this->bullets[i].getAbsCoordinates().getY() == 0)
+					this->bullets[i].setLiveStatus(false);
 			}
 		}
 	}
@@ -79,7 +80,7 @@ void	Game::updateGameEntitiesB( void )
 			else {
 				for (int i = 0; i < 12; i++)
 					this->enemies[i].setAbsCoordinates(
-							Coordinates(this->enemies[i].getAbsCoordinates().getX() + this->_width / 30,
+							Coordinates(this->enemies[i].getAbsCoordinates().getX() + 1,
 										this->enemies[i].getAbsCoordinates().getY()));
 			}
 		}
@@ -93,7 +94,7 @@ void	Game::updateGameEntitiesB( void )
 			else {
 				for (int i = 0; i < 12; i++)
 					this->enemies[i].setAbsCoordinates(
-							Coordinates(this->enemies[i].getAbsCoordinates().getX() - this->_width / 30,
+							Coordinates(this->enemies[i].getAbsCoordinates().getX() - 1,
 										this->enemies[i].getAbsCoordinates().getY()));
 			}
 		}
