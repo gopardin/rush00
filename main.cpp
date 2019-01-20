@@ -21,6 +21,8 @@ void Game::updatePlayerPos(int c) {
 
 void Game::displayAll() {
 	clear();
+	if (this->_finish)
+		exit(0);
 	for (int i = 0; i < 12; i++) {
 		if (this->enemies[i].alive())
 			this->display(this->enemies[i]);
@@ -66,12 +68,12 @@ void	Game::updateGameEntitiesB( )
 		}
 	}
 	this->eSpeed++;
-	if (this->eSpeed == this->eSpeed2) {
+	if (this->eSpeed >= this->eSpeed2) {
 		if (direction) {
 			if (this->enemies[11].getAbsCoordinates().getX() > this->_width - this->_width / 13) {
 				for (int i = 0; i < 12; i++)
 					this->enemies[i].setAbsCoordinates(Coordinates(this->enemies[i].getAbsCoordinates().getX(),
-																   this->enemies[i].getAbsCoordinates().getY() + this->_height/10));
+																   this->enemies[i].getAbsCoordinates().getY() + 1));
 				direction = !direction;
 			}
 			else {
@@ -85,7 +87,7 @@ void	Game::updateGameEntitiesB( )
 			if (this->enemies[0].getAbsCoordinates().getX() < this->_width / 13) {
 				for (int i = 0; i < 12; i++)
 					this->enemies[i].setAbsCoordinates(Coordinates(this->enemies[i].getAbsCoordinates().getX(),
-																   this->enemies[i].getAbsCoordinates().getY() + this->_height/10));
+																   this->enemies[i].getAbsCoordinates().getY() + 1));
 				direction = !direction;
 			}
 			else {
@@ -108,11 +110,15 @@ void Game::checkEnemies() {
 		}
 	}
 	this->newGame();
-	this->eSpeed2 -= 800;
+	for (int i = 0; i < 12; i++) {
+		if (this->enemies[i].getMaxCoordinates().getY() == 1)
+			this->enemies[i].setMaxCoordinates(Coordinates(2, 2));
+		else
+			this->enemies[i].setMaxCoordinates(Coordinates(1, 1));
+	}
+	this->eSpeed2 -= 300;
 	if (this->eSpeed2 < 0)
 		this->eSpeed2 = 100;
-	if (this->_finish)
-		exit(0);
 }
 
 void Game::setStart(std::clock_t start) {
@@ -140,9 +146,9 @@ int main( void )
 			game.updatePlayerPos(c);
 		game.updatePlayerProperties();
 		game.updateGameEntitiesProperties();
+		game.displayAll();
 		game.updateGameEntitiesB();
 		game.checkEnemies();
-		game.displayAll();
 	}
 	refresh();
     return 0;

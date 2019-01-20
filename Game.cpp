@@ -1,6 +1,6 @@
 #include "Game.hpp"
 
-Game::Game() : bSpeed(0), _start(true), eSpeed(0), direction(true), _finish(false), eSpeed2(1000) {
+Game::Game() : bSpeed(0), _start(true), eSpeed(0), direction(true), _finish(false), eSpeed2(2000) {
 	unsigned int max_x;
 	unsigned int max_y;
 
@@ -15,7 +15,7 @@ Game::Game() : bSpeed(0), _start(true), eSpeed(0), direction(true), _finish(fals
 	this->_width = max_x;
 	this->_height = max_y;
 	this->newGame();
-	this->player.setAbsCoordinates(Coordinates(this->_width / 2 - 1, this->_height - 1));
+	this->player.setAbsCoordinates(Coordinates(this->_width / 2 - 1, this->_height - 2));
 	this->displayAll();
 	this->_start = false;
 }
@@ -38,6 +38,7 @@ void Game::newGame() {
 			num++;
 		}
 	}
+	this->direction = true;
 }
 
 Game::~Game()
