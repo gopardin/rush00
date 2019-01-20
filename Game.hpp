@@ -16,7 +16,7 @@ public:
 	Game(Game const &src);
 	~Game();
 
-//		Game &operator=(Game const &rhs);
+//	Game &operator=(Game const &rhs);
 
 	void 	display( Entitie const &src );
 	
