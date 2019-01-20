@@ -18,11 +18,12 @@ public:
 //		Game &operator=(Game const &rhs);
 
 	void 	display( Entitie const &src );
-	void 	updateGameEntities( void );
+	
+	void 	updateGameEntitiesProperties( void );
+	void	updatePlayerProperties( bool side );
+
+
 	void 	updateGameEntitiesB( void );
-	void	updateEnemies( void );
-	void	updatePlayer( bool side );
-	void	updateBullets( void );
 
 	void	shoot();
 	void	updatePlayerPos(int c);
@@ -31,7 +32,7 @@ public:
 private:
 	int				bSpeed;
 	bool			_start;
-	// bool			_end;
+	bool			_finish;
 
 	unsigned int	_width;
 	unsigned int	_height;

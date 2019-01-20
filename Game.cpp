@@ -31,44 +31,42 @@ void	Game::display( Entitie const &src ) {
 	}
 }
 
-Game::~Game() {
+Game::~Game()
+{
 	endwin();
 	return ;
 }
 
-void	Game::updateBullets( void )
+void	Game::updatePlayerProperties( bool side )
 {
-
-}
-
-void	Game::updateEnemies( void )
-{
-	for (int currentEnemy = 0; currentEnemy < 12; currentEnemy++)
+	int currentEnemy = -1;
+	while (++currentEnemy < 12)
 	{
-		if (this->enemies[currentEnemy].alive())
+		if (this->enemies[currentEnemy].alive()
+		&& (this->enemies[currentEnemy].getAbsCoordinates().getX() == this->player.getAbsCoordinates().getX()
+		|| this->enemies[currentEnemy].getAbsCoordinates().getY() == this->player.getAbsCoordinates().getY()))
 		{
-			this->enemies[currentEnemy].getAbsCoordinates().setX(this->enemies[currentEnemy].getAbsCoordinates().getX() + 2);
-			// game.enemies[currentEnemy].getAbsCoordinates().setY(game.enemies[currentEnemy].getAbsCoordinates().getY() + 2);
+			this->_finish;
+			break ;
 		}
 	}
 }
 
-void	Game::updatePlayer( bool side )
+void	Game::updateGameEntitiesProperties( void )
 {
-	for (int currentEnemy = 0; currentEnemy < 12; currentEnemy++)
+	for (int currentEnemy = 0; currentEnemy < 42; currentEnemy++)
 	{
 		if (this->enemies[currentEnemy].alive())
 		{
-			if (this->enemies[currentEnemy].getAbsCoordinates().getX() == this->player.getAbsCoordinates().getX()
-			|| this->enemies[currentEnemy].getAbsCoordinates().getY() == this->player.getAbsCoordinates().getY())
-					;
+			for (int currentBullet = 0; currentBullet < 42; currentBullet++)
+			{
+				if (this->enemies[currentEnemy].getAbsCoordinates().getX() == this->bullets[currentBullet].getAbsCoordinates().getX()
+				|| this->enemies[currentEnemy].getAbsCoordinates().getY() == this->bullets[currentBullet].getAbsCoordinates().getY())
+				{
+					this->enemies[currentEnemy].setLiveStatus(false);
+					this->bullets[currentBullet].setLiveStatus(false);
+				}
+			}
 		}
 	}
-}
-
-void	Game::updateGameEntities( void )
-{
-	Game::updateBullets();
-	Game::updateEnemies();
-	// Game::updatePlayer();
 }
