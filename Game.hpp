@@ -30,12 +30,15 @@ public:
 	void	displayAll();
 	void	checkEnemies();
 	void	newGame();
+	void	setStart(std::clock_t start);
 
 private:
 	int				bSpeed;
 	int				eSpeed;
 	int				eSpeed2;
 	bool			direction;
+	double			dur;
+	std::clock_t 	start;
 
 	bool			_start;
 	bool			_finish;
