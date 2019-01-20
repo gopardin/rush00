@@ -6,10 +6,6 @@
 #include "iostream"
 
 void Game::updatePlayerPos(int c) {
-	unsigned int max_x;
-	unsigned int max_y;
-
-	getmaxyx(stdscr, max_y, max_x);
 	if (c == 260) {
 		this->player.setAbsCoordinates(Coordinates(this->player.getAbsCoordinates().getX()-1, this->player.getAbsCoordinates().getY()));
 		if (this->player.getAbsCoordinates().getX() < 1)
@@ -17,8 +13,8 @@ void Game::updatePlayerPos(int c) {
 	}
 	else if (c == 261) {
 		this->player.setAbsCoordinates(Coordinates(this->player.getAbsCoordinates().getX()+1, this->player.getAbsCoordinates().getY()));
-		if (this->player.getAbsCoordinates().getX() > max_x-4)
-			this->player.setAbsCoordinates(Coordinates(max_x-4, this->player.getAbsCoordinates().getY()));
+		if (this->player.getAbsCoordinates().getX() > this->_width-4)
+			this->player.setAbsCoordinates(Coordinates(this->_width-4, this->player.getAbsCoordinates().getY()));
 	}
 
 }
@@ -58,6 +54,10 @@ void Game::displayAll() {
 			this->display(this->bullets[i]);
 	}
 	this->display(this->player);
+	if (this->_start)
+		mvprintw(1, this->_width/2 - 8, "PRESS ENTER TO START");
+	else
+		mvprintw(1, this->_width/2 - 8, "PRESS ESCAPE TO EXIT");
 	refresh();
 }
 
@@ -87,6 +87,16 @@ void	Game::updateGameEntitiesB( )
 			}
 		}
 	}
+//	this->eSpeed++;
+//	if (this->eSpeed == 1000) {
+//		if (direction) {
+//			for (int i = 0; i < 12; i++) {
+//				this->bullets[i].setAbsCoordinates(Coordinates(this->bullets[i].getAbsCoordinates().getX(),
+//															   this->bullets[i].getAbsCoordinates().getY() - 1));
+//			}
+//		}
+//	}
+
 }
 
 int main( void )
@@ -106,6 +116,7 @@ int main( void )
 		else if (c == 260 || c == 261)
 			game.updatePlayerPos(c);
 		refresh();
+		game.updateGameEntitiesProperties();
 		game.updateGameEntitiesB();
 		game.displayAll();
 	}

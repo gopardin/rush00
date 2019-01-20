@@ -31,6 +31,8 @@ public:
 
 private:
 	int				bSpeed;
+	int				eSpeed;
+	bool			direction;
 	bool			_start;
 	bool			_finish;
 

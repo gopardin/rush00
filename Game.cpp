@@ -1,6 +1,6 @@
 #include "Game.hpp"
 
-Game::Game() : bSpeed(0) {
+Game::Game() : bSpeed(0), _start(true), eSpeed(0), direction(true), _finish(false) {
 	unsigned int max_x;
 	unsigned int max_y;
 
@@ -12,6 +12,8 @@ Game::Game() : bSpeed(0) {
 	nodelay(stdscr,TRUE);
 	refresh();
 	getmaxyx(stdscr, max_y, max_x);
+	this->_width = max_x;
+	this->_height = max_y;
 	int num = 0;
 	for (int j = 0; j < 2; j++) {
 		for (int i = 0; i < 6; i++) {
@@ -21,6 +23,7 @@ Game::Game() : bSpeed(0) {
 	}
 	this->player.setAbsCoordinates(Coordinates(max_x / 2 - 1, max_y - 1));
 	this->displayAll();
+	this->_start = false;
 }
 
 void	Game::display( Entitie const &src ) {
@@ -46,7 +49,7 @@ void	Game::updatePlayerProperties( bool side )
 		&& (this->enemies[currentEnemy].getAbsCoordinates().getX() == this->player.getAbsCoordinates().getX()
 		|| this->enemies[currentEnemy].getAbsCoordinates().getY() == this->player.getAbsCoordinates().getY()))
 		{
-			this->_finish;
+			this->_finish = true;
 			break ;
 		}
 	}
