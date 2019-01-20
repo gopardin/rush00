@@ -19,9 +19,14 @@ public:
 
 	void 	display( Entitie const &src );
 	void 	updateGameEntities( void );
+	void 	updateGameEntitiesB( void );
 	void	updateEnemies( void );
 	void	updatePlayer( bool side );
 	void	updateBullets( void );
+
+	void	shoot();
+	void	updatePlayerPos(int c);
+	void	displayAll();
 
 private:
 	int				bSpeed;

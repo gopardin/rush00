@@ -5,7 +5,7 @@
 
 #include "iostream"
 
-void Game::updatePlayer(int c) {
+void Game::updatePlayerPos(int c) {
 	unsigned int max_x;
 	unsigned int max_y;
 
@@ -23,29 +23,29 @@ void Game::updatePlayer(int c) {
 
 }
 
-Game::Game() : bSpeed(0) {
-	unsigned int max_x;
-	unsigned int max_y;
-
-	initscr();
-	cbreak();
-	noecho();
-	curs_set(0);
-	keypad(stdscr, TRUE);
-	nodelay(stdscr,TRUE);
-	refresh();
-	getmaxyx(stdscr, max_y, max_x);
-	int num = 0;
-	for (int j = 0; j < 2; j++) {
-		for (int i = 0; i < 6; i++) {
-			this->enemies[num].setAbsCoordinates(Coordinates(max_x / 5 + i*(2 + 3*max_x/30), max_y / 5 + j*3));
-			num++;
-		}
-	}
-	this->player.setAbsCoordinates(Coordinates(max_x / 2 - 1, max_y - 1));
-	this->displayAll();
-	refresh();
-}
+//Game::Game() : bSpeed(0) {
+//	unsigned int max_x;
+//	unsigned int max_y;
+//
+//	initscr();
+//	cbreak();
+//	noecho();
+//	curs_set(0);
+//	keypad(stdscr, TRUE);
+//	nodelay(stdscr,TRUE);
+//	refresh();
+//	getmaxyx(stdscr, max_y, max_x);
+//	int num = 0;
+//	for (int j = 0; j < 2; j++) {
+//		for (int i = 0; i < 6; i++) {
+//			this->enemies[num].setAbsCoordinates(Coordinates(max_x / 5 + i*(2 + 3*max_x/30), max_y / 5 + j*3));
+//			num++;
+//		}
+//	}
+//	this->player.setAbsCoordinates(Coordinates(max_x / 2 - 1, max_y - 1));
+//	this->displayAll();
+//	refresh();
+//}
 
 void Game::displayAll() {
 	clear();
@@ -72,7 +72,7 @@ void Game::shoot() {
 	}
 }
 
-void	Game::updateGameEntities( )
+void	Game::updateGameEntitiesB( )
 {
 	this->bSpeed++;
 	if (this->bSpeed == 200)
@@ -104,9 +104,9 @@ int main( void )
 		if (c == 32)
 			game.shoot();
 		else if (c == 260 || c == 261)
-			game.updatePlayer(c);
+			game.updatePlayerPos(c);
 		refresh();
-		game.updateGameEntities();
+		game.updateGameEntitiesB();
 		game.displayAll();
 	}
 	refresh();
