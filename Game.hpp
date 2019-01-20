@@ -16,7 +16,7 @@ public:
 	Game(Game const &src);
 	~Game( void );
 
-	// Game & operator=(Game const &rhs);
+	Game &	operator=( Game const &rhs );
 
 	void 	display( Entitie const &src );
 	
@@ -25,24 +25,27 @@ public:
 
 	void 	updateGameEntitiesB( void );
 	bool	checkIntersectionOfEntities( Entitie const & first, Entitie const & second );
-	void	shoot();
+
+	void	shoot( void );
 	void	updatePlayerPos(int c);
-	void	displayAll();
-	void	checkEnemies();
-	void	newGame();
-	void	setStart(std::clock_t start);
+	void	displayAll( void );
+	void	checkEnemies( void );
+	void	newGame( void );
+	void	setStart( std::clock_t start );
 
 private:
 	int				bSpeed;
 	int				eSpeed;
 	int				eSpeed2;
+
 	bool			direction;
-	double			dur;
-	std::clock_t 	start;
+
 
 	bool			_start;
 	bool			_finish;
 
+	double			dur;
+	std::clock_t 	start;
 	unsigned int	_width;
 	unsigned int	_height;
 

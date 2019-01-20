@@ -35,7 +35,7 @@ $(NAME): $(OBJ)
 VPATH := $(source_dirs)
 
 %.o: %.cpp $(HFILES)
-	$(CC) -I $(INCLUDES) -c $< -o $@
+	$(CC) -I $(INCLUDES) $(FLAGS) -c $< -o $@
 
 clean:
 	$(RM) $(OBJ) $(OBJ_DIR)

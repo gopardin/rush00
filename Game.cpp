@@ -1,6 +1,8 @@
 #include "Game.hpp"
 
-Game::Game() : bSpeed(0), _start(true), eSpeed(0), direction(true), _finish(false), eSpeed2(2000) {
+Game::Game() : bSpeed(0), eSpeed(0), eSpeed2(2000),
+			   direction(true), _start(true), _finish(false)
+{
 	unsigned int max_x;
 	unsigned int max_y;
 
@@ -20,7 +22,8 @@ Game::Game() : bSpeed(0), _start(true), eSpeed(0), direction(true), _finish(fals
 	this->_start = false;
 }
 
-void	Game::display( Entitie const &src ) {
+void	Game::display( Entitie const &src )
+{
 	for (unsigned int j = 0; j < src.getMaxCoordinates().getX(); j++) {
 		for (unsigned int k = 0; k < src.getMaxCoordinates().getY(); k++) {
 			mvprintw(src.getAbsCoordinates().getY() + k, src.getAbsCoordinates().getX() + j, "%c", src.getType());
@@ -28,12 +31,13 @@ void	Game::display( Entitie const &src ) {
 	}
 }
 
-void Game::newGame() {
+void Game::newGame()
+{
 	int num = 0;
 
 	for (int j = 0; j < 2; j++) {
 		for (int i = 0; i < 6; i++) {
-			this->enemies[num].setAbsCoordinates(Coordinates(this->_width / 5 + i*(2 + 3*this->_width/30), this->_height / 5 + j*3));
+			this->enemies[num].setAbsCoordinates(Coordinates(this->_width / 5 + i * (2 + 3 * this->_width / 30), this->_height / 5 + j * 3));
 			this->enemies[num].setLiveStatus(true);
 			num++;
 		}
@@ -45,6 +49,31 @@ Game::~Game()
 {
 	endwin();
 	return ;
+}
+
+Game & Game::operator=( Game const &rhs )
+{
+	if (this != &rhs)
+	{
+		this->bSpeed = rhs.bSpeed;
+		this->eSpeed = rhs.eSpeed;
+		this->eSpeed2 = rhs.eSpeed2;
+		this->direction = rhs.direction;
+		this->dur = rhs.dur;
+		this->start = rhs.start;
+		this->_start = rhs._start;
+		this->_finish = rhs._finish;
+		this->_width = rhs._width;
+		this->_height = rhs._height;
+		this->player = rhs.player;
+		for (int currentEnemy = 0; currentEnemy < 12; currentEnemy++) {
+			this->enemies[currentEnemy] = rhs.enemies[currentEnemy];
+		}
+		for (int currentBullet = 0; currentBullet < 42; currentBullet++) {
+			this->enemies[currentBullet] = rhs.enemies[currentBullet];
+		}
+	}
+	return *this;
 }
 
 bool	Game::checkIntersectionOfEntities( Entitie const & first, Entitie const & second )

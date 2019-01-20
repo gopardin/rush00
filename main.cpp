@@ -19,7 +19,7 @@ void Game::updatePlayerPos(int c) {
 
 }
 
-void Game::displayAll() {
+void Game::displayAll( void ) {
 	clear();
 	if (this->_finish)
 		exit(0);
@@ -42,7 +42,7 @@ void Game::displayAll() {
 }
 
 
-void Game::shoot() {
+void Game::shoot( void ) {
 	for (int i = 0; i < 42; i++) {
 		if (this->bullets[i].alive() == false) {
 			this->bullets[i].setLiveStatus(true);
@@ -52,7 +52,7 @@ void Game::shoot() {
 	}
 }
 
-void	Game::updateGameEntitiesB( )
+void	Game::updateGameEntitiesB( void )
 {
 	this->bSpeed++;
 	if (this->bSpeed == 200)
@@ -102,7 +102,7 @@ void	Game::updateGameEntitiesB( )
 
 }
 
-void Game::checkEnemies() {
+void Game::checkEnemies( void ) {
 	for (int i = 0; i < 12; i++) {
 		if (this->enemies[i].alive()) {
 			if (this->enemies[0].getAbsCoordinates().getY() < this->_height)
@@ -121,7 +121,7 @@ void Game::checkEnemies() {
 		this->eSpeed2 = 100;
 }
 
-void Game::setStart(std::clock_t start) {
+void Game::setStart( std::clock_t start ) {
 	this->start=start;
 }
 
@@ -129,9 +129,9 @@ int main( void )
 {
 	Game	game;
 	int		c;
-	double	duration;
+	// double	duration;
 
-	while ((c=getch()) != 10) {
+	while ((c = getch()) != 10) {
 		if (c == 27)
 			return 0;
 		else
