@@ -2,7 +2,7 @@
 #include <iostream>
 
 
-Bullet::Bullet( void) : Entitie('*', Coordinates(1, 1))
+Bullet::Bullet( void) : Entitie('*', Coordinates(1, 1)), _alive(false)
 {
 }
 
