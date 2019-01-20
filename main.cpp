@@ -19,30 +19,6 @@ void Game::updatePlayerPos(int c) {
 
 }
 
-//Game::Game() : bSpeed(0) {
-//	unsigned int max_x;
-//	unsigned int max_y;
-//
-//	initscr();
-//	cbreak();
-//	noecho();
-//	curs_set(0);
-//	keypad(stdscr, TRUE);
-//	nodelay(stdscr,TRUE);
-//	refresh();
-//	getmaxyx(stdscr, max_y, max_x);
-//	int num = 0;
-//	for (int j = 0; j < 2; j++) {
-//		for (int i = 0; i < 6; i++) {
-//			this->enemies[num].setAbsCoordinates(Coordinates(max_x / 5 + i*(2 + 3*max_x/30), max_y / 5 + j*3));
-//			num++;
-//		}
-//	}
-//	this->player.setAbsCoordinates(Coordinates(max_x / 2 - 1, max_y - 1));
-//	this->displayAll();
-//	refresh();
-//}
-
 void Game::displayAll() {
 	clear();
 	for (int i = 0; i < 12; i++) {
@@ -87,16 +63,52 @@ void	Game::updateGameEntitiesB( )
 			}
 		}
 	}
-//	this->eSpeed++;
-//	if (this->eSpeed == 1000) {
-//		if (direction) {
-//			for (int i = 0; i < 12; i++) {
-//				this->bullets[i].setAbsCoordinates(Coordinates(this->bullets[i].getAbsCoordinates().getX(),
-//															   this->bullets[i].getAbsCoordinates().getY() - 1));
-//			}
-//		}
-//	}
+	this->eSpeed++;
+	if (this->eSpeed == this->eSpeed2) {
+		if (direction) {
+			if (this->enemies[11].getAbsCoordinates().getX() > this->_width - this->_width / 13) {
+				for (int i = 0; i < 12; i++)
+					this->enemies[i].setAbsCoordinates(Coordinates(this->enemies[i].getAbsCoordinates().getX(),
+																   this->enemies[i].getAbsCoordinates().getY() + this->_height/10));
+				direction = !direction;
+			}
+			else {
+				for (int i = 0; i < 12; i++)
+					this->enemies[i].setAbsCoordinates(
+							Coordinates(this->enemies[i].getAbsCoordinates().getX() + this->_width / 30,
+										this->enemies[i].getAbsCoordinates().getY()));
+			}
+		}
+		else {
+			if (this->enemies[0].getAbsCoordinates().getX() < this->_width / 13) {
+				for (int i = 0; i < 12; i++)
+					this->enemies[i].setAbsCoordinates(Coordinates(this->enemies[i].getAbsCoordinates().getX(),
+																   this->enemies[i].getAbsCoordinates().getY() + this->_height/10));
+				direction = !direction;
+			}
+			else {
+				for (int i = 0; i < 12; i++)
+					this->enemies[i].setAbsCoordinates(
+							Coordinates(this->enemies[i].getAbsCoordinates().getX() - this->_width / 30,
+										this->enemies[i].getAbsCoordinates().getY()));
+			}
+		}
+		this->eSpeed = 0;
+	}
 
+}
+
+void Game::checkEnemies() {
+	for (int i = 0; i < 12; i++) {
+		if (this->enemies[i].alive()) {
+			if (this->enemies[0].getAbsCoordinates().getY() < this->_height)
+				return ;
+		}
+	}
+	this->newGame();
+	this->eSpeed2 -= 200;
+	if (this->eSpeed2 < 0)
+		this->eSpeed2 = 100;
 }
 
 int main( void )
@@ -115,9 +127,10 @@ int main( void )
 			game.shoot();
 		else if (c == 260 || c == 261)
 			game.updatePlayerPos(c);
-		refresh();
+		game.updatePlayerProperties();
 		game.updateGameEntitiesProperties();
 		game.updateGameEntitiesB();
+		game.checkEnemies();
 		game.displayAll();
 	}
 	refresh();

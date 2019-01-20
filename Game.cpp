@@ -1,6 +1,6 @@
 #include "Game.hpp"
 
-Game::Game() : bSpeed(0), _start(true), eSpeed(0), direction(true), _finish(false) {
+Game::Game() : bSpeed(0), _start(true), eSpeed(0), direction(true), _finish(false), eSpeed2(1000) {
 	unsigned int max_x;
 	unsigned int max_y;
 
@@ -14,14 +14,8 @@ Game::Game() : bSpeed(0), _start(true), eSpeed(0), direction(true), _finish(fals
 	getmaxyx(stdscr, max_y, max_x);
 	this->_width = max_x;
 	this->_height = max_y;
-	int num = 0;
-	for (int j = 0; j < 2; j++) {
-		for (int i = 0; i < 6; i++) {
-			this->enemies[num].setAbsCoordinates(Coordinates(max_x / 5 + i*(2 + 3*max_x/30), max_y / 5 + j*3));
-			num++;
-		}
-	}
-	this->player.setAbsCoordinates(Coordinates(max_x / 2 - 1, max_y - 1));
+	this->newGame();
+	this->player.setAbsCoordinates(Coordinates(this->_width / 2 - 1, this->_height - 1));
 	this->displayAll();
 	this->_start = false;
 }
@@ -34,13 +28,25 @@ void	Game::display( Entitie const &src ) {
 	}
 }
 
+void Game::newGame() {
+	int num = 0;
+
+	for (int j = 0; j < 2; j++) {
+		for (int i = 0; i < 6; i++) {
+			this->enemies[num].setAbsCoordinates(Coordinates(this->_width / 5 + i*(2 + 3*this->_width/30), this->_height / 5 + j*3));
+			this->enemies[num].setLiveStatus(true);
+			num++;
+		}
+	}
+}
+
 Game::~Game()
 {
 	endwin();
 	return ;
 }
 
-void	Game::updatePlayerProperties( bool side )
+void	Game::updatePlayerProperties()
 {
 	int currentEnemy = -1;
 	while (++currentEnemy < 12)
@@ -57,7 +63,7 @@ void	Game::updatePlayerProperties( bool side )
 
 void	Game::updateGameEntitiesProperties( void )
 {
-	for (int currentEnemy = 0; currentEnemy < 42; currentEnemy++)
+	for (int currentEnemy = 0; currentEnemy < 12; currentEnemy++)
 	{
 		if (this->enemies[currentEnemy].alive())
 		{

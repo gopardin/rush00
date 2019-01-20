@@ -20,17 +20,20 @@ public:
 	void 	display( Entitie const &src );
 	
 	void 	updateGameEntitiesProperties( void );
-	void	updatePlayerProperties( bool side );
+	void	updatePlayerProperties( void);
 
 	void 	updateGameEntitiesB( void );
 
 	void	shoot();
 	void	updatePlayerPos(int c);
 	void	displayAll();
+	void	checkEnemies();
+	void	newGame();
 
 private:
 	int				bSpeed;
 	int				eSpeed;
+	int				eSpeed2;
 	bool			direction;
 
 	bool			_start;
