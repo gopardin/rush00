@@ -49,12 +49,12 @@ Game::~Game()
 void	Game::updatePlayerProperties( void )
 {
 	int currentEnemy = -1;
-	while (++currentEnemy < 12)
-	{
-		if (Game::checkIntersectionOfEntities(this->enemies[currentEnemy], this->player))
-		{
-			this->_finish = true;
-			break ;
+	while (++currentEnemy < 12) {
+		if (this->enemies[currentEnemy].alive()) {
+			if (Game::checkIntersectionOfEntities(this->enemies[currentEnemy], this->player)) {
+				this->_finish = true;
+				break ;
+			}
 		}
 	}
 }
