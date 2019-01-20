@@ -63,11 +63,14 @@ void	Game::updateGameEntitiesProperties( void )
 		{
 			for (int currentBullet = 0; currentBullet < 42; currentBullet++)
 			{
-				if (this->enemies[currentEnemy].getAbsCoordinates().getX() == this->bullets[currentBullet].getAbsCoordinates().getX()
-				|| this->enemies[currentEnemy].getAbsCoordinates().getY() == this->bullets[currentBullet].getAbsCoordinates().getY())
+				if (this->bullets[currentEnemy].alive())
 				{
-					this->enemies[currentEnemy].setLiveStatus(false);
-					this->bullets[currentBullet].setLiveStatus(false);
+					if (this->enemies[currentEnemy].getAbsCoordinates().getX() == this->bullets[currentBullet].getAbsCoordinates().getX()
+					&& this->enemies[currentEnemy].getAbsCoordinates().getY() == this->bullets[currentBullet].getAbsCoordinates().getY())
+					{
+						this->enemies[currentEnemy].setLiveStatus(false);
+						this->bullets[currentBullet].setLiveStatus(false);
+					}
 				}
 			}
 		}

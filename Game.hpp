@@ -22,7 +22,6 @@ public:
 	void 	updateGameEntitiesProperties( void );
 	void	updatePlayerProperties( bool side );
 
-
 	void 	updateGameEntitiesB( void );
 
 	void	shoot();
@@ -33,6 +32,7 @@ private:
 	int				bSpeed;
 	int				eSpeed;
 	bool			direction;
+
 	bool			_start;
 	bool			_finish;
 
