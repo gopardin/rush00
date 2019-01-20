@@ -10,23 +10,31 @@
 
 class Game
 {
-	public:
-		Game();
-//		Game(Game const &src);
-		~Game();
+public:
+	Game();
+	Game(Game const &src);
+	~Game();
 
 //		Game &operator=(Game const &rhs);
 
-		void 	display(Entitie const &src);
-		void 	updateGameEntities();
+	void 	display( Entitie const &src );
+	void 	updateGameEntities( void );
+	void	updateEnemies( void );
+	void	updatePlayer( bool side );
+	void	updateBullets( void );
 
-	private:
-		bool 	_start;
-		Player	player;
-		Enemy	enemies[12];
-		Bullet	bullets[42];
+private:
+	int				bSpeed;
+	bool			_start;
+	// bool			_end;
+
+	unsigned int	_width;
+	unsigned int	_height;
+
+	Player			player;
+	Enemy			enemies[12];
+	Bullet			bullets[42];
+
 };
-
-
 
 #endif
