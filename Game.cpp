@@ -2,6 +2,7 @@
 
 Game::Game( void ) : bSpeed(0), eSpeed(0), eSpeed2(2000),
 			   direction(true), _start(true), _finish(false)
+{
 	unsigned int max_x;
 	unsigned int max_y;
 
