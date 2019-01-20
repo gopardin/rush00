@@ -34,6 +34,8 @@ void Game::displayAll() {
 		mvprintw(1, this->_width/2 - 8, "PRESS ENTER TO START");
 	else
 		mvprintw(1, this->_width/2 - 8, "PRESS ESCAPE TO EXIT");
+	this->dur = ( std::clock() - this->start ) / (double) CLOCKS_PER_SEC;
+	mvprintw(1, this->_width - 10, "%f", this->dur);
 	refresh();
 }
 
@@ -106,15 +108,22 @@ void Game::checkEnemies() {
 		}
 	}
 	this->newGame();
-	this->eSpeed2 -= 200;
+	this->eSpeed2 -= 800;
 	if (this->eSpeed2 < 0)
 		this->eSpeed2 = 100;
+	if (this->_finish)
+		exit(0);
+}
+
+void Game::setStart(std::clock_t start) {
+	this->start=start;
 }
 
 int main( void )
 {
 	Game game;
 	int c;
+	double duration;
 
 	while ((c=getch()) != 10) {
 		if (c == 27)
@@ -122,6 +131,8 @@ int main( void )
 		else
 			continue;
 	}
+	std::clock_t start = std::clock();
+	game.setStart(start);
 	while ((c=getch()) != 27) {
 		if (c == 32)
 			game.shoot();
