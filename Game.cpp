@@ -1,6 +1,6 @@
 #include "Game.hpp"
 
-Game::Game() : bSpeed(0), _start(true), eSpeed(0), direction(true), _finish(false), eSpeed2(2000) {
+Game::Game() : bSpeed(0), _start(true), eSpeed(0), direction(true), _finish(false), eSpeed2(1000) {
 	unsigned int max_x;
 	unsigned int max_y;
 
