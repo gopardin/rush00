@@ -47,19 +47,6 @@ Game::~Game()
 	return ;
 }
 
-void	Game::updatePlayerProperties( void )
-{
-	int currentEnemy = -1;
-	while (++currentEnemy < 12) {
-		if (this->enemies[currentEnemy].alive()) {
-			if (Game::checkIntersectionOfEntities(this->enemies[currentEnemy], this->player)) {
-				this->_finish = true;
-				break ;
-			}
-		}
-	}
-}
-
 bool	Game::checkIntersectionOfEntities( Entitie const & first, Entitie const & second )
 {
 	for (unsigned int firstY = 0; firstY < first.getMaxCoordinates().getY(); firstY++) {
@@ -77,8 +64,22 @@ bool	Game::checkIntersectionOfEntities( Entitie const & first, Entitie const & s
 	return false;
 }
 
+void	Game::updatePlayerProperties( void )
+{
+	int currentEnemy = -1;
+	while (++currentEnemy < 12) {
+		if (this->enemies[currentEnemy].alive()) {
+			if (Game::checkIntersectionOfEntities(this->enemies[currentEnemy], this->player)) {
+				this->_finish = true;
+				break ;
+			}
+		}
+	}
+}
+
 void	Game::updateGameEntitiesProperties( void )
 {
+	Game::updatePlayerProperties();
 	for (int currentEnemy = 0; currentEnemy < 12; currentEnemy++) {
 		if (this->enemies[currentEnemy].alive()) {
 			for (int currentBullet = 0; currentBullet < 42; currentBullet++) {

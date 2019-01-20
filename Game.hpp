@@ -12,11 +12,11 @@ class Game
 {
 
 public:
-	Game();
+	Game( void );
 	Game(Game const &src);
-	~Game();
+	~Game( void );
 
-//	Game &operator=(Game const &rhs);
+	// Game & operator=(Game const &rhs);
 
 	void 	display( Entitie const &src );
 	

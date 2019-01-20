@@ -14,7 +14,7 @@ NAME = ft_retro
 
 CC := clang++
 
-FLAGS := -Wall -Wextra -Werror -g -lncurses
+FLAGS := -Wall -Wextra -Werror -g 
 HEADERS := 
 INCLUDES :=	.
 HFILES = $(patsubst %, $(INCLUDES)/%.hpp, $(HEADERS))
@@ -29,8 +29,8 @@ OBJ = $(notdir $(patsubst %.cpp, %.o, $(wildcard $(search_wildcards))))
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
-	$(CC) -o $@ $(OBJ)
+$(NAME): $(OBJ) 
+	$(CC) -o $@ $(OBJ) -lncurses
 
 VPATH := $(source_dirs)
 

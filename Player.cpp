@@ -2,17 +2,11 @@
 #include <iostream>
 
 
-Player::Player( void ) : Entitie('#', Coordinates(3, 1))
-{
-}
+Player::Player( void ) : Entitie('#', Coordinates(3, 1)) {}
 
-Player::Player( Player const & src ) : Entitie(src)
-{
-}
+Player::Player( Player const & src ) : Entitie(src) {}
 
-Player::~Player( void )
-{
-}
+Player::~Player( void ) {}
 
 Player & Player::operator=( Player const & rhs )
 {

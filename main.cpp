@@ -127,9 +127,9 @@ void Game::setStart(std::clock_t start) {
 
 int main( void )
 {
-	Game game;
-	int c;
-	double duration;
+	Game	game;
+	int		c;
+	double	duration;
 
 	while ((c=getch()) != 10) {
 		if (c == 27)
@@ -144,7 +144,6 @@ int main( void )
 			game.shoot();
 		else if (c == 260 || c == 261)
 			game.updatePlayerPos(c);
-		game.updatePlayerProperties();
 		game.updateGameEntitiesProperties();
 		game.displayAll();
 		game.updateGameEntitiesB();

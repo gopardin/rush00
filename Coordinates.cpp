@@ -1,15 +1,9 @@
 #include "Coordinates.hpp"
 #include <iostream>
 
-Coordinates::Coordinates( void ) : _x(0), _y(0)
-{
+Coordinates::Coordinates( void ) : _x(0), _y(0) {}
 
-}
-
-Coordinates::Coordinates( unsigned int x, unsigned int y  ) : _x(x), _y(y)
-{
-
-}
+Coordinates::Coordinates( unsigned int x, unsigned int y  ) : _x(x), _y(y) {}
 
 Coordinates::Coordinates( Coordinates const & src )
 {
