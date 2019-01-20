@@ -46,14 +46,12 @@ Game::~Game()
 	return ;
 }
 
-void	Game::updatePlayerProperties()
+void	Game::updatePlayerProperties( void )
 {
 	int currentEnemy = -1;
 	while (++currentEnemy < 12)
 	{
-		if (this->enemies[currentEnemy].alive()
-		&& (this->enemies[currentEnemy].getAbsCoordinates().getX() == this->player.getAbsCoordinates().getX()
-		|| this->enemies[currentEnemy].getAbsCoordinates().getY() == this->player.getAbsCoordinates().getY()))
+		if (Game::checkIntersectionOfEntities(this->enemies[currentEnemy], this->player))
 		{
 			this->_finish = true;
 			break ;
@@ -61,18 +59,46 @@ void	Game::updatePlayerProperties()
 	}
 }
 
+bool	Game::checkIntersectionOfEntities( Entitie const & first, Entitie const & second )
+{
+	Coordinates firstCoordinates = first.getAbsCoordinates();
+	Coordinates secondCoordinates = second.getAbsCoordinates();
+	while (firstCoordinates.getY() + first.getMaxCoordinates().getY() < first.getMaxCoordinates().getY())
+	{
+		firstCoordinates.setX(firstCoordinates.getX());
+		while (firstCoordinates.getX() + first.getMaxCoordinates().getX() < first.getMaxCoordinates().getX())
+		{
+			secondCoordinates.setY(secondCoordinates.getY());
+			while (secondCoordinates.getY() + second.getMaxCoordinates().getY() < second.getMaxCoordinates().getY())
+			{
+				secondCoordinates.setX(secondCoordinates.getX());
+				while (secondCoordinates.getX() + second.getMaxCoordinates().getX() < second.getMaxCoordinates().getX())
+				{
+					if (firstCoordinates.getY() == secondCoordinates.getX()
+					&& firstCoordinates.getY() == secondCoordinates.getY())
+						return true;
+					secondCoordinates.setX(secondCoordinates.getX() + 1);
+				}
+				secondCoordinates.setY(secondCoordinates.getY() + 1);
+			}
+			secondCoordinates.setX(secondCoordinates.getX() + 1);
+		}
+		secondCoordinates.setY(secondCoordinates.getY() + 1);
+	}
+	return false;
+}
+
 void	Game::updateGameEntitiesProperties( void )
 {
 	for (int currentEnemy = 0; currentEnemy < 12; currentEnemy++)
 	{
-		if (this->enemies[currentEnemy].alive())
+		if (!this->enemies[currentEnemy].alive())
 		{
 			for (int currentBullet = 0; currentBullet < 42; currentBullet++)
 			{
 				if (this->bullets[currentEnemy].alive())
 				{
-					if (this->enemies[currentEnemy].getAbsCoordinates().getX() == this->bullets[currentBullet].getAbsCoordinates().getX()
-					&& this->enemies[currentEnemy].getAbsCoordinates().getY() == this->bullets[currentBullet].getAbsCoordinates().getY())
+					if (Game::checkIntersectionOfEntities(enemies[currentEnemy], bullets[currentBullet]))
 					{
 						this->enemies[currentEnemy].setLiveStatus(false);
 						this->bullets[currentBullet].setLiveStatus(false);

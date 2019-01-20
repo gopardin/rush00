@@ -10,6 +10,7 @@
 
 class Game
 {
+
 public:
 	Game();
 	Game(Game const &src);
@@ -20,10 +21,10 @@ public:
 	void 	display( Entitie const &src );
 	
 	void 	updateGameEntitiesProperties( void );
-	void	updatePlayerProperties( void);
+	void	updatePlayerProperties( void );
 
 	void 	updateGameEntitiesB( void );
-
+	bool	checkIntersectionOfEntities( Entitie const & first, Entitie const & second );
 	void	shoot();
 	void	updatePlayerPos(int c);
 	void	displayAll();
