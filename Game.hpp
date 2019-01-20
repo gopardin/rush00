@@ -32,6 +32,7 @@ public:
 	void	checkEnemies( void );
 	void	newGame( void );
 	void	setStart( std::clock_t start );
+	bool	endGame( void );
 
 private:
 	int				bSpeed;

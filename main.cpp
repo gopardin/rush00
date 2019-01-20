@@ -21,8 +21,6 @@ void Game::updatePlayerPos(int c) {
 
 void Game::displayAll( void ) {
 	clear();
-	if (this->_finish)
-		exit(0);
 	for (int i = 0; i < 12; i++) {
 		if (this->enemies[i].alive())
 			this->display(this->enemies[i]);
@@ -37,7 +35,7 @@ void Game::displayAll( void ) {
 	else
 		mvprintw(1, this->_width/2 - 8, "PRESS ESCAPE TO EXIT");
 	this->dur = ( std::clock() - this->start ) / (double) CLOCKS_PER_SEC;
-	mvprintw(1, this->_width - 10, "%f", this->dur);
+	mvprintw(1, this->_width - 10, "%.2f", this->dur);
 	refresh();
 }
 
@@ -126,11 +124,25 @@ void Game::setStart( std::clock_t start ) {
 	this->start=start;
 }
 
+bool Game::endGame() {
+	int c;
+
+	if (this->_finish) {
+		clear();
+		mvprintw(this->_height / 2, this->_width / 2 - 3, "GAME OVER");
+		mvprintw(this->_height / 2 + 1, this->_width / 2 - 4, "PRESS ESCAPE");
+		refresh();
+		while ((c=getch()) != 27)
+			;
+		return true;
+	}
+	return false;
+}
+
 int main( void )
 {
 	Game	game;
 	int		c;
-	// double	duration;
 
 	while ((c = getch()) != 10) {
 		if (c == 27)
@@ -149,6 +161,8 @@ int main( void )
 		game.displayAll();
 		game.updateGameEntitiesB();
 		game.checkEnemies();
+		if (game.endGame())
+			return 0;
 	}
 	refresh();
     return 0;
